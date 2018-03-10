@@ -40,6 +40,17 @@ engine = create_engine('postgresql://username:password@host:port/database')
 df.to_sql('tablename', engine)
 ```
 
+## 数据特性
+
+DataFrame的存储形式类似于list和tuple，变量保存的实际上是指针，因此在备份数据时，应该使用copy()方法而非直接赋值
+```python
+import pandas as pd
+df = pd.DataFrame(np.arange(5).reshape(5, 1), columns = ['a'])
+df1 = df.copy()
+df1['b'] = 1
+print df1, df
+```
+
 ## 数据处理
 
 pandas有着类似于数据库的数据处理功能
@@ -71,4 +82,22 @@ print gb.apply(lambda x: x.c.max() - x.b.sum())
 也可以自己写函数，函数的返回值应为DataFrame对象或者Series。如果返回值为多列DataFrame，则groupby结果也会相应的得到多列。
 
 
+### [Join](http://pandas.pydata.org/pandas-docs/version/0.19/merging.html#database-style-dataframe-joining-merging)
 
+pandas的DataFrame结构可以像数据库一样实现join操作，并有着很高效率。
+一个简单的join示例
+
+```python
+import pandas as pd, numpy as np
+n = 5
+df1 = pd.DataFrame(np.arange(n).reshape(n, 1), columns = ['a'])
+df1['b'] = np.random.randint(1, 5, size = n)
+print df1
+
+df2 = pd.DataFrame(np.arange(n).reshape(n, 1) * 2, columns = ['a'])
+df2['c'] = np.random.randint(10, 20, size = n)
+print df2
+
+res = pd.merge(df1, df2, how = 'left', on = ['a'])
+print res
+```
