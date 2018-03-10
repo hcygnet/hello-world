@@ -28,3 +28,8 @@ d = np.array([[0, 1, 2],
              [3, 4, 5]])
 e = np.arange(6).reshape(2, 3)
 ```
+
+生成随机数
+```python
+f = np.random.randint(1, 10, size = 5)
+```
