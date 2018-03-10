@@ -8,6 +8,7 @@ pandas是一款基于numpy数据处理但有丰富高级功能的数据处理高级工具包
 
 先连上数据库，然后用pandas自带的sql工具读入。
 以PostgreSQL为例
+
 ```python
 import pandas.io.sql as psql, psycopg2
 con = psycopg2.connect(dbname, user, password)
@@ -22,8 +23,41 @@ con.close()
 
 直接调用dataframe的方法to_sql（这里需要安装sqlalchemy工具包）。
 以PostgreSQL为例
+
 ```python
 from sqlalchemy import create_engine
 engine = create_engine('postgresql://username:password@host:port/database')
-df.to_sql('test_copy', engine)
+df.to_sql('tablename', engine)
 ```
+
+## 数据处理
+
+pandas有着类似于数据库的数据处理功能
+
+### [Group By](pandas.pydata.org/pandas-docs/stable/api.html#groupby)
+
+pandas通过调用DataFrame/Series对象下的方法groupby()，生成GroupBy对象。
+```python
+import pandas as pd, numpy as np
+d = np.random.randint(0, 4, size = (10, 3))
+df = pd.DataFrame(d)
+df.columns = ['a', 'b', 'c']
+gb = df.groupby('a')
+```
+
+有一系列可以应用与GroupBy对象的[方法](pandas.pydata.org/pandas-docs/stable/api.html#id41)。
+```python
+print gb.sum()
+print gb.count()
+print gb.max()
+```
+
+如果想把对GroupBy对象应用更为复杂的方法，pandas也提供了很简易的写法[.apply()](pandas.pydata.org/pandas-docs/stable/generated/pandas.core.groupby.GroupBy.apply.html#pandas-core-groupby-groupby-apply)。
+```python
+print gb.apply(lambda x: x.max() - x.min())
+print gb.apply(lambda x: x.c.max() - x.b.sum())
+```
+
+
+
+
