@@ -66,6 +66,11 @@ df.columns = ['a', 'b', 'c']
 gb = df.groupby('a')
 ```
 
+如果希望GroupBy对象中，被groupby的列不成为index，要加一项设置
+```python
+gb2 = df.groupby('a', as_index = False)
+```
+
 有一系列可以应用与GroupBy对象的[方法](https://pandas.pydata.org/pandas-docs/stable/api.html#id41)。
 ```python
 print gb.sum()
@@ -85,6 +90,7 @@ print gb.apply(lambda x: x.c.max() - x.b.sum())
 ### [Join](http://pandas.pydata.org/pandas-docs/version/0.19/merging.html#database-style-dataframe-joining-merging)
 
 pandas的DataFrame结构可以像数据库一样实现join操作，并有着很高效率。
+
 一个简单的join示例
 
 ```python
