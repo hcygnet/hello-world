@@ -1,8 +1,18 @@
 # pandas使用手记
 
+pandas是一款基于numpy数据处理但有丰富高级功能的数据处理高级工具包
+
 ## 初始化和IO
 
-pandas是一款基于numpy数据处理但有丰富高级功能的数据处理高级工具包
+DataFrame的初始化方法有很多种，可以[由dict转换](http://pandas.pydata.org/pandas-docs/version/0.19/dsintro.html#from-dict-of-series-or-dicts)、[由ndarray或者list转换](http://pandas.pydata.org/pandas-docs/version/0.19/dsintro.html#from-dict-of-ndarrays-lists)、以及[其他种种](http://pandas.pydata.org/pandas-docs/version/0.19/dsintro.html#dataframe)。
+下面是几个例子：
+
+```python
+df1 = pd.DataFrame({'Score':[83, 76, 91], 'Name':['Ben', 'April', 'Mike']})
+df2 = pd.DataFrame([1, 2, 3], index = ['a', 'b', 'c'], columns = ['num'])
+```
+
+此外，pandas支持丰富的IO方法
 
 ### 从数据库导入
 
@@ -58,6 +68,7 @@ print gb.apply(lambda x: x.max() - x.min())
 print gb.apply(lambda x: x.c.max() - x.b.sum())
 ```
 
+也可以自己写函数，函数的返回值应为DataFrame对象或者Series。如果返回值为多列DataFrame，则groupby结果也会相应的得到多列。
 
 
 
