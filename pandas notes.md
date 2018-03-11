@@ -107,3 +107,54 @@ print df2
 res = pd.merge(df1, df2, how = 'left', on = ['a'])
 print res
 ```
+
+## 实操问题
+
+
+### GroupBy.apply(func)中的自定义函数
+
+对于自定义的group by函数，会出现奇怪的索引列，level_x。
+```python
+import pandas as pd, numpy as np
+
+def gb_test(df):
+    value = np.random.randint(5)
+    return pd.DataFrame({'value':[value]})
+
+df = pd.DataFrame(np.random.randint(0, 5, size = (10, 2)), columns = ['a', 'b'])
+print df
+gb = df.groupby(['a'])
+res = gb.apply(gb_test)
+print res
+print res.reset_index()
+```
+
+输出：
+```
+   a  b
+0  2  2
+1  1  3
+2  2  3
+3  1  3
+4  2  4
+5  4  1
+6  2  3
+7  1  2
+8  2  3
+9  4  1
+     value
+a         
+1 0      2
+2 0      3
+4 0      2
+   a  level_1  value
+0  1        0      2
+1  2        0      3
+2  4        0      2
+```
+
+这一索引导致后续处理要花费多余的操作来排出其影响，比如对df和df2就不能坐关联操作。下列两个操作都会报错
+```python
+df_merge = pd.merge(df, df2, how = 'left', left_on = ['a'], right_index = True)
+df_join = df.join(df2, on = ['a'], how = 'left')
+```
