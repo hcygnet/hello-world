@@ -124,9 +124,9 @@ def gb_test(df):
 df = pd.DataFrame(np.random.randint(0, 5, size = (10, 2)), columns = ['a', 'b'])
 print df
 gb = df.groupby(['a'])
-res = gb.apply(gb_test)
-print res
-print res.reset_index()
+df2 = gb.apply(gb_test)
+print df2
+print df2.reset_index()
 ```
 
 Êä³ö£º
