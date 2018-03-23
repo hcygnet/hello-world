@@ -1,35 +1,35 @@
-# numpyÊ¹ÓÃÊÖ¼Ç
+ï»¿# numpyä½¿ç”¨æ‰‹è®°
 
-## »ù´¡
+## åŸºç¡€
 
-NumPyµÄºËĞÄÊÇ¶àÎ¬Êı×é£¨ndarrays£©£¬ÓëmatlabºÜÏñ
+NumPyçš„æ ¸å¿ƒæ˜¯å¤šç»´æ•°ç»„ï¼ˆndarraysï¼‰ï¼Œä¸matlabå¾ˆåƒ
 
-### ³õÊ¼»¯
+### åˆå§‹åŒ–
 
-Éú³ÉÒ»Î¬Êı×é
+ç”Ÿæˆä¸€ç»´æ•°ç»„
 ```python
 import numpy as np
 a = np.array([0, 1, 2, 3, 4])
 b = np.arange(5)
 c = np.linspace(0, 4, 5, dtype = 'int')
 ```
-ÉÏÊö½á¹û¶¼Ò»Ñù
+ä¸Šè¿°ç»“æœéƒ½ä¸€æ ·
 
-Éú³É¶àÎ¬Êı×é
+ç”Ÿæˆå¤šç»´æ•°ç»„
 ```python
 d = np.array([[0, 1, 2],
              [3, 4, 5]])
 e = np.arange(6).reshape(2, 3)
 ```
 
-Éú³ÉÌØÊâÊı×é
+ç”Ÿæˆç‰¹æ®Šæ•°ç»„
 ```python
 d = np.array([[0, 1, 2],
              [3, 4, 5]])
 e = np.arange(6).reshape(2, 3)
 ```
 
-Éú³ÉËæ»úÊı
+ç”Ÿæˆéšæœºæ•°
 ```python
 f = np.random.randint(1, 10, size = 5)
 ```

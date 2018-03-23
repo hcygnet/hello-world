@@ -1,23 +1,23 @@
-# pandasÊ¹ÓÃÊÖ¼Ç
+ï»¿# pandasä½¿ç”¨æ‰‹è®°
 
-pandasÊÇÒ»¿î»ùÓÚnumpyÊı¾İ´¦Àíµ«ÓĞ·á¸»¸ß¼¶¹¦ÄÜµÄÊı¾İ´¦Àí¸ß¼¶¹¤¾ß°ü
+pandasæ˜¯ä¸€æ¬¾åŸºäºnumpyæ•°æ®å¤„ç†ä½†æœ‰ä¸°å¯Œé«˜çº§åŠŸèƒ½çš„æ•°æ®å¤„ç†é«˜çº§å·¥å…·åŒ…
 
-## ³õÊ¼»¯ºÍIO
+## åˆå§‹åŒ–å’ŒIO
 
-DataFrameµÄ³õÊ¼»¯·½·¨ÓĞºÜ¶àÖÖ£¬¿ÉÒÔ[ÓÉdict×ª»»](http://pandas.pydata.org/pandas-docs/version/0.19/dsintro.html#from-dict-of-series-or-dicts)¡¢[ÓÉndarray»òÕßlist×ª»»](http://pandas.pydata.org/pandas-docs/version/0.19/dsintro.html#from-dict-of-ndarrays-lists)¡¢ÒÔ¼°[ÆäËûÖÖÖÖ](http://pandas.pydata.org/pandas-docs/version/0.19/dsintro.html#dataframe)¡£
-ÏÂÃæÊÇ¼¸¸öÀı×Ó£º
+DataFrameçš„åˆå§‹åŒ–æ–¹æ³•æœ‰å¾ˆå¤šç§ï¼Œå¯ä»¥[ç”±dictè½¬æ¢](http://pandas.pydata.org/pandas-docs/version/0.19/dsintro.html#from-dict-of-series-or-dicts)ã€[ç”±ndarrayæˆ–è€…listè½¬æ¢](http://pandas.pydata.org/pandas-docs/version/0.19/dsintro.html#from-dict-of-ndarrays-lists)ã€ä»¥åŠ[å…¶ä»–ç§ç§](http://pandas.pydata.org/pandas-docs/version/0.19/dsintro.html#dataframe)ã€‚
+ä¸‹é¢æ˜¯å‡ ä¸ªä¾‹å­ï¼š
 
 ```python
 df1 = pd.DataFrame({'Score':[83, 76, 91], 'Name':['Ben', 'April', 'Mike']})
 df2 = pd.DataFrame([1, 2, 3], index = ['a', 'b', 'c'], columns = ['num'])
 ```
 
-´ËÍâ£¬pandasÖ§³Ö·á¸»µÄIO·½·¨
+æ­¤å¤–ï¼Œpandasæ”¯æŒä¸°å¯Œçš„IOæ–¹æ³•
 
-### ´ÓÊı¾İ¿âµ¼Èë
+### ä»æ•°æ®åº“å¯¼å…¥
 
-ÏÈÁ¬ÉÏÊı¾İ¿â£¬È»ºóÓÃpandas×Ô´øµÄsql¹¤¾ß¶ÁÈë¡£
-ÒÔPostgreSQLÎªÀı
+å…ˆè¿ä¸Šæ•°æ®åº“ï¼Œç„¶åç”¨pandasè‡ªå¸¦çš„sqlå·¥å…·è¯»å…¥ã€‚
+ä»¥PostgreSQLä¸ºä¾‹
 
 ```python
 import pandas.io.sql as psql, psycopg2
@@ -29,10 +29,10 @@ df = psql.read_sql(sql_s, con) # df as dataframe
 con.close()
 ```
 
-### µ¼³öµ½Êı¾İ¿â
+### å¯¼å‡ºåˆ°æ•°æ®åº“
 
-Ö±½Óµ÷ÓÃdataframeµÄ·½·¨to_sql£¨ÕâÀïĞèÒª°²×°sqlalchemy¹¤¾ß°ü£©¡£
-ÒÔPostgreSQLÎªÀı
+ç›´æ¥è°ƒç”¨dataframeçš„æ–¹æ³•to_sqlï¼ˆè¿™é‡Œéœ€è¦å®‰è£…sqlalchemyå·¥å…·åŒ…ï¼‰ã€‚
+ä»¥PostgreSQLä¸ºä¾‹
 
 ```python
 from sqlalchemy import create_engine
@@ -40,9 +40,9 @@ engine = create_engine('postgresql://username:password@host:port/database')
 df.to_sql('tablename', engine)
 ```
 
-## Êı¾İÌØĞÔ
+## æ•°æ®ç‰¹æ€§
 
-DataFrameµÄ´æ´¢ĞÎÊ½ÀàËÆÓÚlistºÍtuple£¬±äÁ¿±£´æµÄÊµ¼ÊÉÏÊÇÖ¸Õë£¬Òò´ËÔÚ±¸·İÊı¾İÊ±£¬Ó¦¸ÃÊ¹ÓÃcopy()·½·¨¶ø·ÇÖ±½Ó¸³Öµ
+DataFrameçš„å­˜å‚¨å½¢å¼ç±»ä¼¼äºlistå’Œtupleï¼Œå˜é‡ä¿å­˜çš„å®é™…ä¸Šæ˜¯æŒ‡é’ˆï¼Œå› æ­¤åœ¨å¤‡ä»½æ•°æ®æ—¶ï¼Œåº”è¯¥ä½¿ç”¨copy()æ–¹æ³•è€Œéç›´æ¥èµ‹å€¼
 ```python
 import pandas as pd
 df = pd.DataFrame(np.arange(5).reshape(5, 1), columns = ['a'])
@@ -51,13 +51,13 @@ df1['b'] = 1
 print df1, df
 ```
 
-## Êı¾İ´¦Àí
+## æ•°æ®å¤„ç†
 
-pandasÓĞ×ÅÀàËÆÓÚÊı¾İ¿âµÄÊı¾İ´¦Àí¹¦ÄÜ
+pandasæœ‰ç€ç±»ä¼¼äºæ•°æ®åº“çš„æ•°æ®å¤„ç†åŠŸèƒ½
 
 ### [Group By](https://pandas.pydata.org/pandas-docs/stable/api.html#groupby)
 
-pandasÍ¨¹ıµ÷ÓÃDataFrame/Series¶ÔÏóÏÂµÄ·½·¨groupby()£¬Éú³ÉGroupBy¶ÔÏó¡£
+pandasé€šè¿‡è°ƒç”¨DataFrame/Serieså¯¹è±¡ä¸‹çš„æ–¹æ³•groupby()ï¼Œç”ŸæˆGroupByå¯¹è±¡ã€‚
 ```python
 import pandas as pd, numpy as np
 d = np.random.randint(0, 4, size = (10, 3))
@@ -66,32 +66,32 @@ df.columns = ['a', 'b', 'c']
 gb = df.groupby('a')
 ```
 
-Èç¹ûÏ£ÍûGroupBy¶ÔÏóÖĞ£¬±»groupbyµÄÁĞ²»³ÉÎªindex£¬Òª¼ÓÒ»ÏîÉèÖÃ
+å¦‚æœå¸Œæœ›GroupByå¯¹è±¡ä¸­ï¼Œè¢«groupbyçš„åˆ—ä¸æˆä¸ºindexï¼Œè¦åŠ ä¸€é¡¹è®¾ç½®
 ```python
 gb2 = df.groupby('a', as_index = False)
 ```
 
-ÓĞÒ»ÏµÁĞ¿ÉÒÔÓ¦ÓÃÓëGroupBy¶ÔÏóµÄ[·½·¨](https://pandas.pydata.org/pandas-docs/stable/api.html#id41)¡£
+æœ‰ä¸€ç³»åˆ—å¯ä»¥åº”ç”¨ä¸GroupByå¯¹è±¡çš„[æ–¹æ³•](https://pandas.pydata.org/pandas-docs/stable/api.html#id41)ã€‚
 ```python
 print gb.sum()
 print gb.count()
 print gb.max()
 ```
 
-Èç¹ûÏë°Ñ¶ÔGroupBy¶ÔÏóÓ¦ÓÃ¸üÎª¸´ÔÓµÄ·½·¨£¬pandasÒ²Ìá¹©ÁËºÜ¼òÒ×µÄĞ´·¨[.apply()](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.core.groupby.GroupBy.apply.html#pandas-core-groupby-groupby-apply)¡£
+å¦‚æœæƒ³æŠŠå¯¹GroupByå¯¹è±¡åº”ç”¨æ›´ä¸ºå¤æ‚çš„æ–¹æ³•ï¼Œpandasä¹Ÿæä¾›äº†å¾ˆç®€æ˜“çš„å†™æ³•[.apply()](https://pandas.pydata.org/pandas-docs/stable/generated/pandas.core.groupby.GroupBy.apply.html#pandas-core-groupby-groupby-apply)ã€‚
 ```python
 print gb.apply(lambda x: x.max() - x.min())
 print gb.apply(lambda x: x.c.max() - x.b.sum())
 ```
 
-Ò²¿ÉÒÔ×Ô¼ºĞ´º¯Êı£¬º¯ÊıµÄ·µ»ØÖµÓ¦ÎªDataFrame¶ÔÏó»òÕßSeries¡£Èç¹û·µ»ØÖµÎª¶àÁĞDataFrame£¬Ôògroupby½á¹ûÒ²»áÏàÓ¦µÄµÃµ½¶àÁĞ¡£
+ä¹Ÿå¯ä»¥è‡ªå·±å†™å‡½æ•°ï¼Œå‡½æ•°çš„è¿”å›å€¼åº”ä¸ºDataFrameå¯¹è±¡æˆ–è€…Seriesã€‚å¦‚æœè¿”å›å€¼ä¸ºå¤šåˆ—DataFrameï¼Œåˆ™groupbyç»“æœä¹Ÿä¼šç›¸åº”çš„å¾—åˆ°å¤šåˆ—ã€‚
 
 
 ### [Join](http://pandas.pydata.org/pandas-docs/version/0.19/merging.html#database-style-dataframe-joining-merging)
 
-pandasµÄDataFrame½á¹¹¿ÉÒÔÏñÊı¾İ¿âÒ»ÑùÊµÏÖjoin²Ù×÷£¬²¢ÓĞ×ÅºÜ¸ßĞ§ÂÊ¡£
+pandasçš„DataFrameç»“æ„å¯ä»¥åƒæ•°æ®åº“ä¸€æ ·å®ç°joinæ“ä½œï¼Œå¹¶æœ‰ç€å¾ˆé«˜æ•ˆç‡ã€‚
 
-Ò»¸ö¼òµ¥µÄjoinÊ¾Àı
+ä¸€ä¸ªç®€å•çš„joinç¤ºä¾‹
 
 ```python
 import pandas as pd, numpy as np
@@ -108,12 +108,12 @@ res = pd.merge(df1, df2, how = 'left', on = ['a'])
 print res
 ```
 
-## Êµ²ÙÎÊÌâ
+## å®æ“é—®é¢˜
 
 
-### GroupBy.apply(func)ÖĞµÄ×Ô¶¨Òåº¯Êı
+### GroupBy.apply(func)ä¸­çš„è‡ªå®šä¹‰å‡½æ•°
 
-¶ÔÓÚ×Ô¶¨ÒåµÄgroup byº¯Êı£¬»á³öÏÖÆæ¹ÖµÄË÷ÒıÁĞ£¬level_x¡£
+å¯¹äºè‡ªå®šä¹‰çš„group byå‡½æ•°ï¼Œä¼šå‡ºç°å¥‡æ€ªçš„ç´¢å¼•åˆ—ï¼Œlevel_xã€‚
 ```python
 import pandas as pd, numpy as np
 
@@ -129,7 +129,7 @@ print df2
 print df2.reset_index()
 ```
 
-Êä³ö£º
+è¾“å‡ºï¼š
 ```
    a  b
 0  2  2
@@ -153,7 +153,7 @@ a
 2  4        0      2
 ```
 
-ÕâÒ»Ë÷Òıµ¼ÖÂºóĞø´¦ÀíÒª»¨·Ñ¶àÓàµÄ²Ù×÷À´ÅÅ³öÆäÓ°Ïì£¬±ÈÈç¶ÔdfºÍdf2¾Í²»ÄÜ×ø¹ØÁª²Ù×÷¡£ÏÂÁĞÁ½¸ö²Ù×÷¶¼»á±¨´í
+è¿™ä¸€ç´¢å¼•å¯¼è‡´åç»­å¤„ç†è¦èŠ±è´¹å¤šä½™çš„æ“ä½œæ¥æ’å‡ºå…¶å½±å“ï¼Œæ¯”å¦‚å¯¹dfå’Œdf2å°±ä¸èƒ½åå…³è”æ“ä½œã€‚ä¸‹åˆ—ä¸¤ä¸ªæ“ä½œéƒ½ä¼šæŠ¥é”™
 ```python
 df_merge = pd.merge(df, df2, how = 'left', left_on = ['a'], right_index = True)
 df_join = df.join(df2, on = ['a'], how = 'left')
