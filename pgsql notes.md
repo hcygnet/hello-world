@@ -143,7 +143,7 @@ SELECT DISTINCT * FROM gps2avl.gps1012_yt
 
 > 2315975 rows affected.
 
-数据重复率为 1 - 2315975 / 4639386 = 53.1%
+数据重复率为 1 - 2315975 / 4639386 = 50.1%
 
 再看看高效率ctid方法
 
