@@ -84,3 +84,85 @@ ON (
 )
 ORDER BY tb1.vehicle_id
 ```
+
+## 删除重复数据测试
+
+```sql
+SELECT count(*) FROM gps2avl.gps1012_ln1102
+```
+
+> 146502
+
+DISTINCT 方法
+
+```sql
+SELECT DISTINCT * FROM gps2avl.gps1012_ln1102
+```
+
+> Successfully run. Total query runtime: 1 secs.
+
+> 68692 rows affected.
+
+数据重复率为 1 - 68692 / 146502 = 53.1%
+
+高效率ctid方法
+
+```sql
+DELETE FROM gps2avl.gps1012_ln1102_copy a
+WHERE a.ctid = ANY (
+	ARRAY (
+		SELECT ctid FROM(
+			SELECT row_number() OVER (
+					PARTITION BY bus_company, vehicle_code,
+						line_name, time0, pt
+				),
+				ctid FROM gps2avl.gps1012_ln1102_copy
+			) t
+		WHERE t.row_number > 1
+	)
+)
+```
+
+> DELETE 77810
+
+> Query returned successfully in 1 secs.
+
+我们来测试一个更大的表格
+
+```sql
+SELECT count(*) FROM gps2avl.gps1012_yt
+```
+
+> 4639386
+
+```sql
+SELECT DISTINCT * FROM gps2avl.gps1012_yt
+```
+
+> Successfully run. Total query runtime: 8 min.
+
+> 2315975 rows affected.
+
+数据重复率为 1 - 2315975 / 4639386 = 53.1%
+
+再看看高效率ctid方法
+
+```sql
+DELETE FROM gps2avl.gps1012_yt a
+WHERE a.ctid = ANY (
+	ARRAY (
+		SELECT ctid FROM(
+			SELECT row_number() OVER (
+					PARTITION BY bus_company, vehicle_code,
+						line_name, time0, pt
+				),
+				ctid FROM gps2avl.gps1012_yt
+			) t
+		WHERE t.row_number > 1
+	)
+)
+```
+
+> DELETE 2323411
+
+> Query returned successfully in 56 secs.
