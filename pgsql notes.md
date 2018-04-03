@@ -105,7 +105,7 @@ SELECT DISTINCT * FROM gps2avl.gps1012_ln1102
 
 数据重复率为 1 - 68692 / 146502 = 53.1%
 
-高效率ctid方法
+[高效率ctid方法](https://blog.csdn.net/arcticjian/article/details/50042647)
 
 ```sql
 DELETE FROM gps2avl.gps1012_ln1102_copy a
