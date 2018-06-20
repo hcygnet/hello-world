@@ -166,3 +166,48 @@ WHERE a.ctid = ANY (
 > DELETE 2323411
 
 > Query returned successfully in 56 secs.
+
+
+## 快速选取Distinct的一种方法
+
+对于选取distinct数据，最直接有效的办法就是利用distinct关键字，或者利用group by。
+但即便在加了索引的情况下，这两者的效率都还是很低。
+利用explain查看发现，pg甚至还不使用索引（笔者目前还不能理解其原因）。
+在数据量超过一定程度后，低效率就成为了数据处理的瓶颈。
+
+这里提供一种快速选取distinct的思路，主要依靠上文叙述的快速去重实现。
+
+分两步
+1. 备份原表格中的目标字段
+2. 对备份表去重
+
+这样，得到的新表即为选取distinct的结果
+
+样例代码如下
+
+```sql
+CREATE TABLE gps2avl.gps1012_yt_rpos_copy AS (
+	SELECT line_name, vehicle_code, name0 FROM gps2avl.gps1012_yt_rpos
+)
+```
+> SELECT 4606607
+> Query returned successfully in 26 min.
+
+```sql
+DELETE FROM gps2avl.gps1012_yt_rpos_copy a
+WHERE a.ctid = ANY (
+	ARRAY (
+		SELECT ctid FROM(
+			SELECT row_number() OVER (
+					PARTITION BY line_name, vehicle_code, name0
+				),
+				ctid FROM gps2avl.gps1012_yt_rpos_copy
+			) t
+		WHERE t.row_number > 1
+	)
+)
+```
+> DELETE 4604705
+> Query returned successfully in 1 min.
+
+相比之下，用distinct选取数据需要超过10h（没有耐心等下去了...可能远远不止）
